@@ -1,0 +1,20 @@
+{
+    "name": "jefyokta/blade",
+    "description": "Blade for Oktaax",
+    "type": "library",
+    "license": "mit",
+    "autoload": {
+        "psr-4": {
+            "JefyOkta\\Blade\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jepi Oktamipa",
+            "email": "jefyokta50@gmail.com"
+        }
+    ],
+    "require": {
+        "illuminate/view": "^11.43"
+    }
+}
