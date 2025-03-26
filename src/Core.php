@@ -59,6 +59,11 @@ class Core
      */
     private $viewFactory;
 
+    /**
+     * @var array
+     */
+    private static $customDirective;
+
 
 
     /**
@@ -88,12 +93,11 @@ class Core
         $viewFinder = new FileViewFinder($filesystem, [$viewsDir]);
         $this->viewFactory = new Factory($engineResolver, $viewFinder, $dispatcher);
         $this->registerDirectives($bladeCompiler);
-
     }
     private function registerDirectives(BladeCompiler $compiler)
     {
 
-        
+
         $compiler->directive('method', function ($expression) {
             return " echo \\Oktaax\\Blade\\BladeDirectives::methodField($expression); ?>";
         });
@@ -135,9 +139,14 @@ class Core
         $compiler->directive("endHasErrorMessage", function () {
             return " endif; ?>";
         });
+        foreach (static::$customDirective as $directive => $handler) {
+            $compiler->directive($directive, $handler);
+        }
+    }
 
-
-
+    public static function directive(string $directive, callable $callback)
+    {
+        self::$customDirective[$directive] = $callback;
     }
 
     public function render(string $view, array $data = []): string

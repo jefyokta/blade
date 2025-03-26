@@ -8,7 +8,7 @@ trait Blade {
 
     public function __construct() {
         $this->config = new OktaaxConfig(
-            new Core("views/","views/cache/"),
+            new BladeView("views/","views/cache/"),
             'log',
             false,
             null,
